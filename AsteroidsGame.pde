@@ -1,15 +1,52 @@
-//your variable declarations here
+Spaceship bob;
 public void setup() 
 {
-  //your code here
+  size(400, 400);
+
+  bob = new Spaceship();
 }
 public void draw() 
 {
-  //your code here
+  background(150, 140, 10);
+  bob.show();
+  bob.keyPressed();
 }
-class Spaceship //extends Floater  
+class Spaceship extends Floater  
 {   
-    //your code here
+ public Spaceship(){
+  corners =4;
+  xCorners = new int[corners];
+  yCorners = new int[corners];
+  xCorners[0] = -20;
+  yCorners[0] = -15;
+  xCorners[1] = 18;
+  yCorners[1] = 12;
+  xCorners[2] = -14;
+  yCorners[2] = 8;
+  xCorners[3] = -8;
+  yCorners[3] = 0;
+  myColor = color(20, 20, 20);
+  myCenterX = 200;
+  myCenterY = 200;
+  myDirectionX = 2;
+  myDirectionY = 3;
+  myPointDirection = 0;
+
+ }
+
+
+
+  public void setX(int x){myCenterX =x;}
+  public int getX(){return (int)myCenterX;}
+  public void setY(int y){myCenterY = y;}   
+  public int getY(){return (int)myCenterY;}   
+  public void setDirectionX(double x){myDirectionX = x;}   
+  public double getDirectionX(){return myDirectionX;}   
+  public void setDirectionY(double y){myDirectionY = y;}  
+  public double getDirectionY(){return myDirectionY;}   
+ public void setPointDirection(int degrees){myPointDirection = degrees;}   
+ public double getPointDirection(){return myPointDirection;} 
+
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
@@ -69,6 +106,32 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
       myCenterY = height;    
     }   
   }   
+
+  public void keyPressed()
+  {
+    if(key == 's'){
+      bob.setDirectionX(0);
+      bob.setDirectionY(0);
+    }
+
+    if(key == 'a')
+    {
+      bob.setX((double)myCenterX+ 1);
+
+    }
+
+    if(key == 'd')
+    {
+
+      bob.setY(150);
+    }
+
+    if(key == 'w')
+    {
+      bob.setPointDirection(150);
+    }
+
+  }
   public void show ()  //Draws the floater at the current position  
   {             
     fill(myColor);   
