@@ -1,15 +1,47 @@
 Spaceship bob;
+Star[] sun;
+
 public void setup() 
 {
   size(400, 400);
-
+  sun = new Star[50];
+  for (int i = 0; i< sun.length; i++)
+  {
+     sun[i] = new Star();
+  }
   bob = new Spaceship();
+  
+ 
+  
 }
 public void draw() 
 {
-  background(150, 140, 10);
+  background(250, 250, 250);
+  for (int i =0; i< sun.length; i++)
+  {
+    sun[i].show1();
+  }
   bob.show();
-  bob.keyPressed();
+    bob.keyPressed();
+  bob.move();
+  
+}
+
+class Star
+{
+  int myY;
+  int myX;
+  Star()
+  {
+    myX = (int)(Math.random()*400);
+    myY = (int)(Math.random()*400);
+  }
+  public void show1(){
+    fill((int)(Math.random()*250), 250, 100);
+    noStroke();
+    ellipse(myX, myY, 5, 5);
+    
+  }
 }
 class Spaceship extends Floater  
 {   
@@ -30,7 +62,7 @@ class Spaceship extends Floater
   myCenterY = 200;
   myDirectionX = 2;
   myDirectionY = 3;
-  myPointDirection = 0;
+  myPointDirection= 0;
 
  }
 
@@ -109,28 +141,35 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
 
   public void keyPressed()
   {
+    
     if(key == 's'){
       bob.setDirectionX(0);
       bob.setDirectionY(0);
+      bob.setX((int)(Math.random()*400));
+      bob.setY((int)(Math.random()*400));
+    
     }
 
     if(key == 'a')
     {
-      bob.setX((double)myCenterX+ 1);
+      bob.rotate(5);
 
+    }
+    else
+    
+
+    if(key == 'w')
+    {
+
+      bob.accelerate(.2);
     }
 
     if(key == 'd')
     {
-
-      bob.setY(150);
+      bob.rotate(-5);
     }
-
-    if(key == 'w')
-    {
-      bob.setPointDirection(150);
+    
     }
-
   }
   public void show ()  //Draws the floater at the current position  
   {             
@@ -150,4 +189,3 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     endShape(CLOSE);  
   }   
 } 
-
