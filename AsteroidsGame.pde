@@ -152,11 +152,11 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
 
     if(key == 'a')
     {
-      bob.rotate(5);
+      bob.rotate(1);
 
     }
     else
-    
+    {bob.rotate(0);
 
     if(key == 'w')
     {
@@ -166,7 +166,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
 
     if(key == 'd')
     {
-      bob.rotate(-5);
+      bob.rotate(-1);
     }
     
     }
@@ -188,3 +188,4 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     }   
     endShape(CLOSE);  
   }   
+} 
