@@ -22,7 +22,7 @@ public void draw()
     sun[i].show1();
   }
   bob.show();
-    bob.keyPressed();
+   
   bob.move();
   
 }
@@ -80,6 +80,38 @@ class Spaceship extends Floater
  public double getPointDirection(){return myPointDirection;} 
 
 }
+ public void keyPressed()
+  {
+    
+    if(key == 's'){
+      bob.setDirectionX(0);
+      bob.setDirectionY(0);
+      bob.setX((int)(Math.random()*400));
+      bob.setY((int)(Math.random()*400));
+    
+    }
+
+    if(key == 'a')
+    {
+      bob.rotate(-5);
+
+    }
+    else
+    {bob.rotate(0);
+
+    if(key == 'w')
+    {
+
+      bob.accelerate(5);
+    }
+
+    if(key == 'd')
+    {
+      bob.rotate(5);
+    }
+    
+    }
+  }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
   protected int corners;  //the number of corners, a triangular floater has 3   
@@ -139,38 +171,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     }   
   }   
 
-  public void keyPressed()
-  {
-    
-    if(key == 's'){
-      bob.setDirectionX(0);
-      bob.setDirectionY(0);
-      bob.setX((int)(Math.random()*400));
-      bob.setY((int)(Math.random()*400));
-    
-    }
-
-    if(key == 'a')
-    {
-      bob.rotate(1);
-
-    }
-    else
-    {bob.rotate(0);
-
-    if(key == 'w')
-    {
-
-      bob.accelerate(.2);
-    }
-
-    if(key == 'd')
-    {
-      bob.rotate(-1);
-    }
-    
-    }
-  }
+ 
   public void show ()  //Draws the floater at the current position  
   {             
     fill(myColor);   
