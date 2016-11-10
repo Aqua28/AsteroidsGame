@@ -1,6 +1,6 @@
 Spaceship bob;
 Star[] sun;
-Asteroid stanley;
+Asteroid[] stanley;
 
 public void setup() 
 {
@@ -11,35 +11,45 @@ public void setup()
      sun[i] = new Star();
   }
   bob = new Spaceship();
-  stanley = new Asteroid();
+  stanley = new Asteroid[10];
+   for (int i = 0; i< stanley.length; i++)
+  {
+     stanley[i] = new Asteroid();
+  }
  
   
 }
 public void draw() 
 {
-  background(250, 250, 250);
+  background(10, 0, 40);
   for (int i =0; i< sun.length; i++)
   {
     sun[i].show1();
   }
-  bob.show();
+  
+  for (int i = 0; i< stanley.length; i++)
+  {
+    stanley[i].show();
+    stanley[i].move();
+   
+  }
   bob.move();
-  stanley.show();
-  stanley.move();
-  stanley.rotate(5);
+  bob.show();
+  
+  
 }
 
 class Star
 {
-  int myY;
-  int myX;
+  private int myY;
+  private int myX;
   Star()
   {
     myX = (int)(Math.random()*400);
     myY = (int)(Math.random()*400);
   }
   public void show1(){
-    fill((int)(Math.random()*250), 250, 100);
+    fill(200, (int)(Math.random()*250), 200);
     noStroke();
     ellipse(myX, myY, 5, 5);
     
@@ -48,63 +58,37 @@ class Star
 
 class Asteroid extends Floater
 {
-  private int speedRotation;
+  public int speedRotation;
 public Asteroid()
 {
  corners =8;
   xCorners = new int[corners];
   yCorners = new int[corners];
-  xCorners[0] = -20;
-  yCorners[0] = -20;
+  xCorners[0] = -18;
+  yCorners[0] = -18;
   xCorners[1] = 0;
-  yCorners[1] = -30;
-  xCorners[2] = 20;
-  yCorners[2] = -20;
-  xCorners[3] = 30;
+  yCorners[1] = -18;
+  xCorners[2] = 18;
+  yCorners[2] = -18;
+  xCorners[3] = 28;
   yCorners[3] = 0;
-  xCorners[4] = 20;
-  yCorners[4] = 20;
+  xCorners[4] = 18;
+  yCorners[4] = 18;
   xCorners[5] = 0;
-  yCorners[5] = 30;
-  xCorners[6] = -20;
-  yCorners[6] = 20;
-  xCorners[7] = -30;
+  yCorners[5] = 28;
+  xCorners[6] = -18;
+  yCorners[6] = 18;
+  xCorners[7] = -28;
   yCorners[7] = 0;
-
   myColor = color(20, 200, 200);
-  myCenterX = 200;
-  myCenterY = 200;
-  myDirectionX = 2;
-  myDirectionY = 3;
-  myPointDirection= 0;
-  speedRotation = (int)(Math.random()*100)-50;
-
+  myCenterX = (int)(Math.random()*400);
+  myCenterY = (int)(Math.random()*400);
+  myDirectionX = (Math.random()*5)-2;
+  myDirectionY = (Math.random()*5)-2;
+  myPointDirection= (int)Math.random()*360;
+  speedRotation = (int)(Math.random()*4)-2;
 }
-public void move(){
-  myDirectionY= myDirectionY*speedRotation;
-    myDirectionX= myDirectionX*speedRotation;  
-myCenterX += myDirectionX;    
-    myCenterY += myDirectionY;   
-    
 
-    //wrap around screen    
-    if(myCenterX >width)
-    {     
-      myCenterX = 0;    
-    }    
-    else if (myCenterX<0)
-    {     
-      myCenterX = width;    
-    }    
-    if(myCenterY >height)
-    {    
-      myCenterY = 0;    
-    }   
-    else if (myCenterY < 0)
-    {     
-      myCenterY = height;    
-    } 
-  }
 
  public void setX(int x){myCenterX =x;}
   public int getX(){return (int)myCenterX;}
@@ -117,7 +101,16 @@ myCenterX += myDirectionX;
  public void setPointDirection(int degrees){myPointDirection = degrees;}   
  public double getPointDirection(){return myPointDirection;} 
 
+
+public void move(){
+  
+  
+   rotate(speedRotation);
+   super.move();
+
+  }
 }
+  
 class Spaceship extends Floater  
 {   
  public Spaceship(){
@@ -132,11 +125,11 @@ class Spaceship extends Floater
   yCorners[2] = 20;
   xCorners[3] = -8;
   yCorners[3] = 0;
-  myColor = color(20, 20, 20);
-  myCenterX = 200;
-  myCenterY = 200;
-  myDirectionX = 2;
-  myDirectionY = 3;
+  myColor = color(200, 0, 200);
+  myCenterX = (int)(Math.random()*400);
+  myCenterY = (int)(Math.random()*400);
+  myDirectionX = 0;
+  myDirectionY = 0;
   myPointDirection= 0;
 
  }
@@ -175,7 +168,7 @@ class Spaceship extends Floater
     if(key == 'w')
     {
 
-      bob.accelerate(5);
+      bob.accelerate(2);
     }
 
     if(key == 'd')
