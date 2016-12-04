@@ -1,7 +1,8 @@
 Spaceship bob;
 Star[] sun;
 ArrayList <Asteroid> stanley;
-
+ArrayList <Bullet> blob;
+ 
 public void setup() 
 {
   size(400, 400);
@@ -16,9 +17,13 @@ public void setup()
   {
      stanley.add(new Asteroid());
   }
-
   
-}
+  
+  blob = new ArrayList <Bullet>();
+  
+  }
+  
+
 public void draw() 
 {
   background(10, 0, 40);
@@ -27,10 +32,13 @@ public void draw()
     sun[i].show1();
   }
   
+  
   for (int i = 0; i< stanley.size(); i++)
   {
     stanley.get(i).show();
     stanley.get(i).move();
+    
+    
    
   }
    for( int i = 0; i<stanley.size(); i++)
@@ -39,12 +47,74 @@ public void draw()
    if(d <15)
    stanley.remove(i);
  }
-  bob.move();
-  bob.show();
+ 
+  
+   
+  for (int i =0; i <blob.size() ; i++)
+  {
+    blob.get(i).show();
+    blob.get(i).move();
+    
+  }
+  
+  for (int i =0; i<blob.size(); i++)
+  {
+    for (int j = 0; j<stanley.size(); j++)
+    {
+       if (dist(blob.get(i).getX(), blob.get(i).getY(), stanley.get(j).getX(), stanley.get(j).getY())<30)
+      {
+      stanley.remove(j);
+      blob.remove(i);
+      break;
+      
+      }
+    }
+  }
+     bob.show();
+     bob.move();
   
   
 }
+class Bullet extends Floater 
+{
+  int count;
+double dRadians;
 
+public Bullet(Spaceship theShip)
+{
+  myCenterX = theShip.getX();
+  myCenterY = theShip.getY();
+  myPointDirection = theShip.getPointDirection();
+  dRadians = myPointDirection*(Math.PI/180);
+  myDirectionX = 5*Math.cos(dRadians)+theShip.getDirectionX();
+  myDirectionY = 5*Math.sin(dRadians)+theShip.getDirectionY();
+}
+  public void setX(int x){myCenterX =x;}
+  public int getX(){return (int)myCenterX;}
+  public void setY(int y){myCenterY = y;}   
+  public int getY(){return (int)myCenterY;}   
+  public void setDirectionX(double x){myDirectionX = x;}   
+  public double getDirectionX(){return myDirectionX;}   
+  public void setDirectionY(double y){myDirectionY = y;}  
+  public double getDirectionY(){return myDirectionY;}   
+  public void setPointDirection(int degrees){myPointDirection = degrees;}   
+  public double getPointDirection(){return myPointDirection;} 
+ 
+  public void show()
+{
+    fill(200, 100, 200);
+    noStroke();
+    ellipse((float)myCenterX, (float)myCenterY,12,12);
+}
+public void move()
+{
+  
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY;
+    
+}
+
+}
 class Star
 {
   private int myY;
@@ -132,11 +202,11 @@ class Spaceship extends Floater
   xCorners[3] = -8;
   yCorners[3] = 0;
   myColor = color(200, 0, 200);
-  myCenterX = (int)(Math.random()*400);
-  myCenterY = (int)(Math.random()*400);
+  myCenterX =200;
+  myCenterY = 200;
   myDirectionX = 0;
   myDirectionY = 0;
-  myPointDirection= 0;
+  myPointDirection= 20;//(int)(Math.random()*360);
 
  }
 
@@ -154,6 +224,11 @@ class Spaceship extends Floater
 }
  public void keyPressed()
   {
+    
+    if(key == 'r'){
+      
+      blob.add(new Bullet(bob));
+    }
     
     if(key == 's'){
       bob.setDirectionX(0);
