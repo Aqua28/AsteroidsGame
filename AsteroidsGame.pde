@@ -36,15 +36,13 @@ public void draw()
   for (int i = 0; i< stanley.size(); i++)
   {
     stanley.get(i).show();
-    stanley.get(i).move();
-    
-    
+    stanley.get(i).move();   
    
   }
    for( int i = 0; i<stanley.size(); i++)
  {
    double d = dist(bob.getX(), bob.getY(), stanley.get(i).getX(), stanley.get(i).getY());
-   if(d <15)
+   if(d <20)
    stanley.remove(i);
  }
  
@@ -72,49 +70,8 @@ public void draw()
   }
      bob.show();
      bob.move();
-  
-  
-}
-class Bullet extends Floater 
-{
-  int count;
-double dRadians;
+   }
 
-public Bullet(Spaceship theShip)
-{
-  myCenterX = theShip.getX();
-  myCenterY = theShip.getY();
-  myPointDirection = theShip.getPointDirection();
-  dRadians = myPointDirection*(Math.PI/180);
-  myDirectionX = 5*Math.cos(dRadians)+theShip.getDirectionX();
-  myDirectionY = 5*Math.sin(dRadians)+theShip.getDirectionY();
-}
-  public void setX(int x){myCenterX =x;}
-  public int getX(){return (int)myCenterX;}
-  public void setY(int y){myCenterY = y;}   
-  public int getY(){return (int)myCenterY;}   
-  public void setDirectionX(double x){myDirectionX = x;}   
-  public double getDirectionX(){return myDirectionX;}   
-  public void setDirectionY(double y){myDirectionY = y;}  
-  public double getDirectionY(){return myDirectionY;}   
-  public void setPointDirection(int degrees){myPointDirection = degrees;}   
-  public double getPointDirection(){return myPointDirection;} 
- 
-  public void show()
-{
-    fill(200, 100, 200);
-    noStroke();
-    ellipse((float)myCenterX, (float)myCenterY,12,12);
-}
-public void move()
-{
-  
-    myCenterX += myDirectionX;    
-    myCenterY += myDirectionY;
-    
-}
-
-}
 class Star
 {
   private int myY;
@@ -156,7 +113,7 @@ public Asteroid()
   yCorners[6] = 18;
   xCorners[7] = -28;
   yCorners[7] = 0;
-  myColor = color(20, 200, 200);
+  myColor = color(10, 200, 200, 160);
   myCenterX = (int)(Math.random()*400);
   myCenterY = (int)(Math.random()*400);
   myDirectionX = (Math.random()*5)-2;
@@ -176,6 +133,27 @@ public Asteroid()
   public double getDirectionY(){return myDirectionY;}   
  public void setPointDirection(int degrees){myPointDirection = degrees;}   
  public double getPointDirection(){return myPointDirection;} 
+
+
+public void show(){
+ fill(myColor); 
+    stroke(myColor);    
+    strokeWeight(2);
+    //convert degrees to radians for sin and cos         
+    double dRadians = myPointDirection*(Math.PI/180);                 
+    int xRotatedTranslated, yRotatedTranslated;    
+    beginShape();         
+    for(int nI = 0; nI < corners; nI++)    
+    {     
+      //rotate and translate the coordinates of the floater using current direction 
+      xRotatedTranslated = (int)((xCorners[nI]* Math.cos(dRadians)) - (yCorners[nI] * Math.sin(dRadians))+myCenterX);     
+      yRotatedTranslated = (int)((xCorners[nI]* Math.sin(dRadians)) + (yCorners[nI] * Math.cos(dRadians))+myCenterY);      
+      vertex(xRotatedTranslated,yRotatedTranslated);    
+    }   
+    endShape(CLOSE);  
+  }   
+
+
 
 
 public void move(){
@@ -206,7 +184,7 @@ class Spaceship extends Floater
   myCenterY = 200;
   myDirectionX = 0;
   myDirectionY = 0;
-  myPointDirection= 20;//(int)(Math.random()*360);
+  myPointDirection= (int)(Math.random()*360);
 
  }
 
@@ -220,7 +198,24 @@ class Spaceship extends Floater
   public double getDirectionY(){return myDirectionY;}   
  public void setPointDirection(int degrees){myPointDirection = degrees;}   
  public double getPointDirection(){return myPointDirection;} 
-
+public void show()
+    {             
+    noFill();   
+    stroke(myColor); 
+    strokeWeight(2);   
+    //convert degrees to radians for sin and cos         
+    double dRadians = myPointDirection*(Math.PI/180);                 
+    int xRotatedTranslated, yRotatedTranslated;    
+    beginShape();         
+    for(int nI = 0; nI < corners; nI++)    
+    {     
+      //rotate and translate the coordinates of the floater using current direction 
+      xRotatedTranslated = (int)((xCorners[nI]* Math.cos(dRadians)) - (yCorners[nI] * Math.sin(dRadians))+myCenterX);     
+      yRotatedTranslated = (int)((xCorners[nI]* Math.sin(dRadians)) + (yCorners[nI] * Math.cos(dRadians))+myCenterY);      
+      vertex(xRotatedTranslated,yRotatedTranslated);    
+    }   
+    endShape(CLOSE);  
+  }   
 }
  public void keyPressed()
   {
@@ -235,7 +230,7 @@ class Spaceship extends Floater
       bob.setDirectionY(0);
       bob.setX((int)(Math.random()*400));
       bob.setY((int)(Math.random()*400));
-    
+      bob.setPointDirection((int)(Math.random()*360));
     }
 
     if(key == 'a')
@@ -256,8 +251,11 @@ class Spaceship extends Floater
     {
       bob.rotate(5);
     }
+
     
     }
+
+    
   }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
