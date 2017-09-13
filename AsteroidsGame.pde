@@ -6,7 +6,7 @@ ArrayList <Bullet> blob;
 public void setup() 
 {
   size(400, 400);
-  sun = new Star[50];
+  sun = new Star[70];
   for (int i = 0; i< sun.length; i++)
   {
      sun[i] = new Star();
@@ -113,7 +113,7 @@ public Asteroid()
   yCorners[6] = 18;
   xCorners[7] = -28;
   yCorners[7] = 0;
-  myColor = color(10, 200, 200, 160);
+  myColor = color(10, 200, 220, 130);
   myCenterX = (int)(Math.random()*400);
   myCenterY = (int)(Math.random()*400);
   myDirectionX = (Math.random()*5)-2;
@@ -179,7 +179,7 @@ class Spaceship extends Floater
   yCorners[2] = 20;
   xCorners[3] = -8;
   yCorners[3] = 0;
-  myColor = color(200, 0, 200);
+  myColor = color(173, 57, 161);
   myCenterX =200;
   myCenterY = 200;
   myDirectionX = 0;
@@ -334,4 +334,4 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     }   
     endShape(CLOSE);  
   }   
-} 
+}
