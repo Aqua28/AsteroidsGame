@@ -6,7 +6,7 @@ ArrayList <Bullet> blob;
 public void setup() 
 {
   size(400, 400);
-  sun = new Star[70];
+  sun = new Star[120];
   for (int i = 0; i< sun.length; i++)
   {
      sun[i] = new Star();
@@ -82,9 +82,9 @@ class Star
     myY = (int)(Math.random()*400);
   }
   public void show1(){
-    fill(200, (int)(Math.random()*250), 200);
+    fill(100, (int)(Math.random()*250), 250);
     noStroke();
-    ellipse(myX, myY, 5, 5);
+    ellipse(myX, myY, 4.5, 4.5);
     
   }
 }
@@ -179,7 +179,7 @@ class Spaceship extends Floater
   yCorners[2] = 20;
   xCorners[3] = -8;
   yCorners[3] = 0;
-  myColor = color(173, 57, 161);
+  myColor = color(100, 157, 161);
   myCenterX =200;
   myCenterY = 200;
   myDirectionX = 0;
